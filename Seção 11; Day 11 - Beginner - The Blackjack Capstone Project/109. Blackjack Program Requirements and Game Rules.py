@@ -65,47 +65,110 @@ import random
 
 def main():
 
-    play_blackjack = input("Start Blackjack game? Type 'y' to play or 'n' to exit.\nAnswer: ")
-    system("cls")
     # Ás, 2, [...], 9, 10, J, Q, K
     card_deck = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
     player_dealer_score = {"player_score" : 0, "dealer_score" : 0}
     player_dealer_deck = {"player_deck" : [], "dealer_deck" : []}
-
 
     def first_card_assignment():
         if player_dealer_deck["dealer_deck"] == [] and player_dealer_deck["player_deck"] == []:
             while len(player_dealer_deck["dealer_deck"]) < 2 and len(player_dealer_deck["player_deck"]) < 2:
                 player_dealer_deck["dealer_deck"].append(random.choice(card_deck))
                 player_dealer_deck["player_deck"].append(random.choice(card_deck))
-
     
     def score_assignment():
+        player_dealer_score["player_score"] = 0
+        player_dealer_score["dealer_score"] = 0
+        card_position_player = 0
+        card_position_dealer = 0
         for card in player_dealer_deck["player_deck"]:
+            if card == 11 and (player_dealer_score["player_score"] + card) > 21:
+                card = 1
+                player_dealer_deck["player_deck"][card_position_player] = 1
             player_dealer_score["player_score"] += card
+            card_position_player += 1
+
         for card in player_dealer_deck["dealer_deck"]:
+            if card == 11 and (player_dealer_score["dealer_score"] + card) > 21:
+                card = 1
+                player_dealer_deck["dealer_deck"][card_position_dealer] = 1
             player_dealer_score["dealer_score"] += card
+            card_position_dealer += 1
 
-        
-    def hit(player_dealer_deck):
-        player_dealer_deck.append(random.choice(card_deck))
-
+    def verify_score():
+        '''
+        Returns 0 if the player loses\n
+        Returns 1 if the player wins by blackjack\n
+        Returns 2 if the player wins by higher score than dealer's\n
+        Returns 3 if it is a draw\n
+        Returns 4 if dealer goes over 21
+        Returns -1 if it is not a known condition
+        '''
+        if player_dealer_score["player_score"] == 21:
+            return 1
+        elif player_dealer_score["player_score"] > 21:
+            return 0
+        elif player_dealer_score["dealer_score"] == player_dealer_score["player_score"]:
+            return 3
+        elif player_dealer_score["player_score"] < player_dealer_score["dealer_score"] and player_dealer_score["dealer_score"] > 21:
+            return 4
+        elif player_dealer_score["dealer_score"] == 21 and player_dealer_score["player_score"] < 21:
+            return 0
+        elif player_dealer_score["player_score"] > player_dealer_score["dealer_score"]:
+            return 2
+        elif player_dealer_score["dealer_score"] > player_dealer_score["player_score"]:
+            return 0
+        else:
+            return -1
 
     def blackjack():
-        if play_blackjack == "y":
-            while play_blackjack == "y":
-                print(art.logo)
-                first_card_assignment()
-                score_assignment()
-                print(f"Your cards are: {player_dealer_deck['player_deck']} and your current score is {player_dealer_score['player_score']}\nDealer's first card is [{player_dealer_deck['dealer_deck'][0]}]")
-                # hit_pass = input("\nType 'h' to get another card (hit) or type 'p' to pass\nAnswer: ").lower()
-                # if hit_pass == "h":
-                #     hit(player_dealer_deck["player_deck"])
+        play_blackjack = input("Start Blackjack game? Type 'y' to play or 'n' to exit.\nAnswer: ")
+        system("cls")
+        while play_blackjack == "y":
+            print(art.logo)
+            first_card_assignment()
+            score_assignment()
+            print(f"Your cards are: {player_dealer_deck['player_deck']} and your current score is {player_dealer_score['player_score']}\nDealer's first card is [{player_dealer_deck['dealer_deck'][0]}]")
+            hit_pass = input("\nType 'y' to get another card (hit) or type 'n' to pass\nAnswer: ").lower()
+            if hit_pass == "y":
+                system("cls")
+                while hit_pass == "y":
+                    player_dealer_deck["player_deck"].append(random.choice(card_deck))
+                    score_assignment()
+                    print(f"Your cards are: {player_dealer_deck['player_deck']} and your current score is {player_dealer_score['player_score']}\nDealer's first card is [{player_dealer_deck['dealer_deck'][0]}]")
+                    if player_dealer_score["player_score"] > 21:
+                        break
+                    hit_pass = input("Hit again? Type 'y' to hit or 'n' to stop hitting.\nAnswer: ")
+                system("cls")
 
+            while player_dealer_score["dealer_score"] < 17:
+                player_dealer_deck["dealer_deck"].append(random.choice(card_deck))
+                score_assignment()
+            
+            if verify_score() == 0:
+                print("\n>>>Player loses!<<<\n")
+            elif verify_score() == 1:
+                print("\n>>>Player wins by blackjack!<<<\n")
+            elif verify_score() == 2:
+                print("\n>>>Player wins by surpassing dealer's score!<<<\n")
+            elif verify_score() == 3:
+                print("\n>>>It's a draw!<<<\n")
+            elif verify_score() == 4:
+                print("\n>>>You win! Dealer went above 21.<<<\n")
+            elif verify_score == -1:
+                print("\n>>>Unknown condition yet<<<\n")
+
+            print(f"\nFinal results:\n{player_dealer_deck}\n{player_dealer_score}\n")
+            
+            play_blackjack = input("Start another round? Type 'y' to play again or 'n' to exit.\nAnswer: ").lower()
+            if play_blackjack == 'y':
+                player_dealer_deck["player_deck"] = []
+                player_dealer_score["player_score"] = 0
+                player_dealer_deck["dealer_deck"] = []
+                player_dealer_score["dealer_score"] = 0
+                system("cls")
 
     blackjack()
-    print(player_dealer_deck)
-    print(player_dealer_score)
             
 
 if __name__ == '__main__':
