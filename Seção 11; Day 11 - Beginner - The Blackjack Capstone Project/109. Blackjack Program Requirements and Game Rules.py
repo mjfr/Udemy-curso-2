@@ -79,21 +79,26 @@ def main():
     def score_assignment():
         player_dealer_score["player_score"] = 0
         player_dealer_score["dealer_score"] = 0
-        card_position_player = 0
-        card_position_dealer = 0
-        for card in player_dealer_deck["player_deck"]:
-            if card == 11 and (player_dealer_score["player_score"] + card) > 21:
-                card = 1
-                player_dealer_deck["player_deck"][card_position_player] = 1
-            player_dealer_score["player_score"] += card
-            card_position_player += 1
+        card_sum_player = 0
+        card_sum_dealer = 0
 
+        # This block of code solves the problem with the miscalculation of the ace.
+        for card in player_dealer_deck["player_deck"]:
+            card_sum_player += card
+        if player_dealer_deck["player_deck"].count(11):
+            if card_sum_player > 21:
+                player_dealer_deck["player_deck"][player_dealer_deck["player_deck"].index(11)] = 1
         for card in player_dealer_deck["dealer_deck"]:
-            if card == 11 and (player_dealer_score["dealer_score"] + card) > 21:
-                card = 1
-                player_dealer_deck["dealer_deck"][card_position_dealer] = 1
-            player_dealer_score["dealer_score"] += card
-            card_position_dealer += 1
+            card_sum_dealer += card
+        if player_dealer_deck["dealer_deck"].count(11):
+            if card_sum_dealer > 21:
+                player_dealer_deck["dealer_deck"][player_dealer_deck["dealer_deck"].index(11)] = 1
+
+
+        for card_position in range(0, len(player_dealer_deck["player_deck"])):
+            player_dealer_score["player_score"] += player_dealer_deck["player_deck"][card_position]
+        for card_position in range(0, len(player_dealer_deck["dealer_deck"])):
+            player_dealer_score["dealer_score"] += player_dealer_deck["dealer_deck"][card_position]
 
     def verify_score():
         '''
@@ -144,7 +149,7 @@ def main():
             while player_dealer_score["dealer_score"] < 17:
                 player_dealer_deck["dealer_deck"].append(random.choice(card_deck))
                 score_assignment()
-            
+
             if verify_score() == 0:
                 print("\n>>>Player loses!<<<\n")
             elif verify_score() == 1:
