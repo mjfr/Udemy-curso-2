@@ -14,11 +14,18 @@ def main():
     from os import system
 
     def generate_random_number():
+        """
+        Cria uma lista vazia e extende a mesma a partir de um range\n
+        Retorna um número aleatório escolhido a partir da lista
+        """
         number_list = []
         number_list.extend(range(1, 101))
         return random.choice(number_list)
 
     def dificulty_selection():
+        """
+        Recebe um input do usuário e retorna 9 para o input 'easy' e 4 para o input 'hard'
+        """
         dificulty_mode = input("\nYou can type 'easy' to only help me (you will get 10 tries) or if you are feeling lucky, you can help me and spread your glorious deed choosing to type 'hard' (you will get 5 tries)\nWhat is your answer? ")
         while dificulty_mode != "easy" and dificulty_mode != "hard":
             dificulty_mode = input("Wrong input. Type 'easy' to get 10 tries or 'hard' to get 5 tries.\nAnswer: ")
@@ -29,6 +36,11 @@ def main():
             return 4
 
     def guess_comparison(number, dificulty):
+        """
+        Recebe como parâmetro o número aleatório e a dificuldade\n
+        Realiza a contagem regressiva para a dificuldade a cada erro do usuário\n
+        Retorna um texto sobre o resultado (sucesso/falha)
+        """
         print(f"Guessing tries left: x{dificulty+1}")
         guess = int(input("What number did you find?\nAnswer: "))
         while dificulty != 0 and guess != number:
@@ -45,6 +57,10 @@ def main():
         return f"Thank you! You really found my lost {guess}!!!"
         
     def game():
+        """
+        Função para dar início ao jogo.
+        Recebe um input do usuário para repetir ou não o jogo.
+        """
         play_again = 'y'
         print(f"Welcome to:\n{art.logo}\nI need you to use that big brain of yours to help me find my lost number.\nIt is somewhere between 1 and 100.\nBut before you help me find my precious lost number, I need to ask you: Do you want to only help me or bask in glory while helping me?")
         while play_again == 'y':
