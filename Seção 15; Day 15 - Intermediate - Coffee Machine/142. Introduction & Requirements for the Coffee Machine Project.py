@@ -43,10 +43,10 @@ def main():
 
     def calculate_resources(order):
         '''
-        Parâmetro recebe como atributo um produto dento do MENU.\n
-        Realiza um loop que considera os recursos atuais em comparação ao protudo.\n
-        Retorna 0 caso não haja ingredientes
-        Retorna 1 caso não haja problemas
+        Parameter that gets a MENU product as an attribute\n
+        Uses a loop that considers the machine resources in comparison to the product ordered\n
+        Returns 0 in case of lacking ingredients\n
+        Returns 1 if everything is okay
         '''
         for ingredient in MENU[order]["ingredients"]:
             if MENU[order]["ingredients"][ingredient] > resources[ingredient]+0.0001:
@@ -56,6 +56,10 @@ def main():
 
 
     def use_resources(calculate_resources_result, order):
+        '''
+        The parameters get as attributes the return of the calculate_resources(order) function and the MENU product\n
+        If it returns 1, a loop will subtract the resources used from the stored resources.
+        '''
         if calculate_resources_result == 1:
             for ingredient in MENU[order]["ingredients"]:
                 if MENU[order]["ingredients"].get(ingredient):
@@ -64,10 +68,17 @@ def main():
 
 
     def keep_money(order):
+        '''
+        Just returns the value of the chosen product.
+        '''
         return MENU[order]["cost"]
         
 
     def calculate_change(order):
+        '''
+        Makes a loop to ask to the user how many coins of each value will be inserted while adding the values.\n
+        Returns a round value of the change the user will get.
+        '''
         print("Insert coins in order:")
         value_sum = 0
         for coin in COINS:
@@ -78,6 +89,11 @@ def main():
 
     
     def enough_money(calculate_change):
+        '''
+        Just returns 1 or 0 depending on the calculate_change(order) function return.\n
+        Returns 1 in case of the attribute value is higher than 0
+        Returns 0 in case of the attribute value is lower than 0
+        '''
         if calculate_change > 0.001:
             return 1
         return 0
