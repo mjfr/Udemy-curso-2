@@ -17,10 +17,10 @@ left_paddle = Paddle((-350, 0))
 ball = Ball()
 scoreboard = Scoreboard()
 
-screen.onkey(key="Up", fun=right_paddle.up)
-screen.onkey(key="Down", fun=right_paddle.down)
-screen.onkey(key="w", fun=left_paddle.up)
-screen.onkey(key="s", fun=left_paddle.down)
+screen.onkeypress(key="Up", fun=right_paddle.up)
+screen.onkeypress(key="Down", fun=right_paddle.down)
+screen.onkeypress(key="w", fun=left_paddle.up)
+screen.onkeypress(key="s", fun=left_paddle.down)
 
 is_game_on = True
 while is_game_on:
