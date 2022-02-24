@@ -45,7 +45,7 @@ def save():
     else:
 
         is_ok = messagebox.askokcancel(title="Save?", message=f"These are the details entered:"
-                                                              f"\nWebsite: {website}\nLogin{login}"
+                                                              f"\nWebsite: {website}\nLogin: {login}"
                                                               f"\nPassword: {password}\nIs it ok to save?")
         if is_ok:
             pyperclip.copy(password)

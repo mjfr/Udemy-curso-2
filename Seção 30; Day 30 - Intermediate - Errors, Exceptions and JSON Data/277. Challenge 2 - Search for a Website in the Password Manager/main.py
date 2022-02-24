@@ -45,7 +45,7 @@ def save():
     else:
 
         is_ok = messagebox.askokcancel(title="Save?", message=f"These are the details entered:"
-                                                              f"\nWebsite: {website}\nLogin{login}"
+                                                              f"\nWebsite: {website}\nLogin: {login}"
                                                               f"\nPassword: {password}\nIs it ok to save?")
         if is_ok:
             pyperclip.copy(password)
@@ -65,10 +65,33 @@ def save():
                 password_entry.delete(0, tk.END)
 
 
+# ------------------------ Search  Registry --------------------------- #
+def search():
+    try:
+        with open("data.json", mode="r") as data:
+            json_data = json.load(data)
+    except FileNotFoundError:
+        messagebox.showinfo(title="Save file not found", message="If you are seeing this message is because you "
+                                                                 "probably have not saved any data yet.\n"
+                                                                 "Try saving a website registry first, then you "
+                                                                 "can search for the website.")
+    else:
+        try:
+            searched_data = json_data[website_entry.get()]
+            messagebox.showinfo(title="Search Result", message=f"Register found!\nWebsite: {website_entry.get()}\n"
+                                                               f"E-mail/Username: {searched_data['email']}\n"
+                                                               f"Password: {searched_data['password']}\n"
+                                                               f"Your password is now in your clipboard.")
+            pyperclip.copy(searched_data['password'])
+        except KeyError as message_error:
+            messagebox.showinfo(title="Search Result", message=f"There is no {message_error} in records, try saving it"
+                                                               f" first.")
+
+
 # ---------------------------- UI SETUP ------------------------------- #
 window = tk.Tk()
 window.title("Password Manager")
-window.config(padx=50, pady=50, bg="white")
+window.config(padx=40, pady=40, bg="white")
 
 canvas = tk.Canvas(width=200, height=200, bg="white", highlightthickness=0)
 image_path = tk.PhotoImage(file="logo.png")
@@ -91,13 +114,16 @@ add_button.grid(column=1, row=4, columnspan=2)
 generate_password_button = tk.Button()
 generate_password_button.config(text="Generate Password", command=generate_password, bg="white")
 generate_password_button.grid(column=2, row=3)
+search_button = tk.Button()
+search_button.config(text="Search", command=search, bg="white", width=14)
+search_button.grid(column=2, row=1)
 
 website_entry = tk.Entry()
-website_entry.config(width=50, borderwidth=2)
+website_entry.config(width=32, borderwidth=2)
 website_entry.focus()
-website_entry.grid(column=1, row=1, columnspan=2)
+website_entry.grid(column=1, row=1)
 username_entry = tk.Entry()
-username_entry.config(width=50, borderwidth=2)
+username_entry.config(width=51, borderwidth=2)
 username_entry.insert(0, "exemple@email.com")
 username_entry.grid(column=1, row=2, columnspan=2)
 password_entry = tk.Entry()

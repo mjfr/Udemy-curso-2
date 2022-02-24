@@ -1,0 +1,30 @@
+{
+    "Amazon": {
+        "email": "exemple@email.com",
+        "password": "OI4hT(TjB2CE(8R0"
+    },
+    "Submarino": {
+        "email": "exemple@email.com",
+        "password": "f+zXW*!2T0sjZ"
+    },
+    "Udemy": {
+        "email": "exemple@email.com",
+        "password": "U6cXELP*(H+J5&"
+    },
+    "Google": {
+        "email": "exemple@email.com",
+        "password": "e2#(wA3+&kTdFw"
+    },
+    "MyAnimeList": {
+        "email": "exemple@email.com",
+        "password": "R(nZ&4Qdf1iDy34"
+    },
+    "Facebook": {
+        "email": "exemple@email.com",
+        "password": "GTM!1UuE%cYb*2"
+    },
+    "Azzy": {
+        "email": "exemple@email.com",
+        "password": "njwp*7J#7MzE1u2#"
+    }
+}
