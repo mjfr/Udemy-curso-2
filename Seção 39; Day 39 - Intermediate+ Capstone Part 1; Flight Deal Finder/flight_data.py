@@ -12,18 +12,21 @@ KIWI_HEADERS = {
 
 class FlightData:
     # This class is responsible for structuring the flight data.
-    def __init__(self):
+    def __init__(self, stop_overs=0):
         self.today_date = dt.datetime.today()
         self.tomorrow_date = self.today_date + dt.timedelta(days=1)
         self.six_months = self.today_date + dt.timedelta(days=180)
+        self.stop_overs = stop_overs
         self.search_params = {
             "fly_from": "fromIATA",
             "fly_to": "toIATA",
             "dateFrom": self.tomorrow_date.strftime("%d/%m/%Y"),
             "dateTo": self.six_months.strftime("%d/%m/%Y"),
-            "flight_type": "oneway",  # Round que estava sendo pedido no desafio, não retornava dados. Na documentação
-            # Está dito que logo mais sairá de prática.
-            "max_stopovers": "0",
+            "max_stopovers": stop_overs,
+            "nights_in_dst_from": 4,
+            "nights_in_dst_to": 30,
+            "flight_type": "round",
+            "one_for_city": 1,
             "curr": "GBP",
             "limit": "20"  # Poucos resultados para ficar mais leve
         }

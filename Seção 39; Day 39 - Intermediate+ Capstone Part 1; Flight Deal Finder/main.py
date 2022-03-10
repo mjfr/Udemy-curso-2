@@ -31,14 +31,38 @@ for data in price_data:
     # Segundo for rodando no retorno json que contém as informações dos possíveis voos que cumprem os requisitos
     for flight in flight_price["data"]:
         price_list.append(flight["price"])
-    min_price = min(price_list)
-    prices[data["iataCode"]] = min_price
-    price_list.clear()
-    print(f"{flight['cityTo']}: £{min_price}")
-    # Se o preço mínimo dos voos futuros forem menores que o preço especificado na planilha, um alerta é enviado
-    if data["lowestPrice"] > min_price:
-        notificator = NotificationManager(f"Low price alert! Only £{min_price} to fly from {SET_CITY}-{SET_LOCATION} to"
-                                          f" {flight['cityTo']}-{data['iataCode']} from "
-                                          f"{flight['local_departure'].split('T')[0]}"
-                                          f" to {flight['local_arrival'].split('T')[0]}")
-        notificator.send()
+    try:
+        min_price = min(price_list)
+        prices[data["iataCode"]] = min_price
+        price_list.clear()
+        print(f"{flight['cityTo']}: £{min_price}")
+        # Se o preço mínimo dos voos futuros forem menores que o preço especificado na planilha, um alerta é enviado
+        if data["lowestPrice"] > min_price:
+            notificator = NotificationManager(f"Low price alert! Only £{min_price} to fly from {SET_CITY}-"
+                                              f"{SET_LOCATION} to {flight['cityTo']}-{data['iataCode']} from "
+                                              f"{flight['local_departure'].split('T')[0]}"
+                                              f" to {flight['local_arrival'].split('T')[0]}")
+            notificator.send()
+            # Gera erro caso não haja voos disponíveis, assim o preço mínimo não existiria.
+    except ValueError:
+        print(f"No flights found for {data['city']}, trying to find flights to {data['city']} with 1 stopover.")
+        flight_data_w_stop_over = FlightData(stop_overs=1)
+        flight_price_w_stop_over = flight_data_w_stop_over.get_prices(SET_LOCATION, data["iataCode"])
+
+        for flight_stop_over in flight_price_w_stop_over["data"]:
+            price_list.append(flight_stop_over["price"])
+        try:
+            min_price = min(price_list)
+            prices[data["iataCode"]] = min_price
+            price_list.clear()
+            print(f"{flight_stop_over['cityTo']}: £{min_price} w/ stopover at {flight_stop_over['route'][0]['cityTo']}")
+            if data["lowestPrice"] > min_price:
+                notificator = NotificationManager(f"Low price alert! Only £{min_price} to fly from {SET_CITY}-"
+                                                  f"{SET_LOCATION} to {flight['cityTo']}-{data['iataCode']} from "
+                                                  f"{flight['local_departure'].split('T')[0]}"
+                                                  f" to {flight['local_arrival'].split('T')[0]}\n\nFlight has 1 stop"
+                                                  f"over, via {flight_stop_over['route'][0]['cityTo']} city.")
+                notificator.send()
+        except ValueError:
+            print(f"No flights found for {data['city']}")
+
