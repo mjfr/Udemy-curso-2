@@ -1,0 +1,25 @@
+/* 
+selector { property : value; }
+selector --> is who I want to change in the page
+property --> is what I want to change
+value    --> is how I want to change
+*/
+body {
+    background-color: #6EBF8B;
+}
+hr {
+    border-style: dotted none none none;
+    width: 4%;
+    border-top-width: 8px;
+    border-top-color: #151D3B;
+}
+img {
+    height: 200px;
+    width: 200px;
+}
+h1 {
+    color: #D82148;
+}
+h3 {
+    color: #DADBBD;
+}

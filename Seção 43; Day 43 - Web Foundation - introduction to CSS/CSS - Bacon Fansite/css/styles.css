@@ -1,0 +1,64 @@
+/* Tag Selectors */
+body {
+    background: radial-gradient(rgb(255, 209, 209), rgb(255, 113, 87));
+}
+
+h1 {
+    color: rgba(138, 0, 0, 0.3);
+    font-size: 200px;
+}
+
+/* img {
+    border-radius: 5%;
+    background-color: rgba(255, 0, 0, 0.349);
+    height: 7%;
+    width: 15%;
+} */
+
+/* img:hover {
+    height: 40%;
+    width: 70%;
+    transition: all 5s ease-out;
+} */
+
+
+p::selection {
+    background-color: red;
+    color: white;
+}
+
+/* Class Selectors */
+.bacon {
+    border-radius: 5%;
+    background-color: rgba(255, 0, 0, 0.349);
+    height: 7%;
+    width: 15%;
+}
+
+.bacon:hover {
+    height: 40%;
+    width: 70%;
+    transition: all 5s ease-out;
+}
+
+.broccoli {
+    border-radius: 5%;
+    background-color: rgba(0, 90, 12, 0.349);
+    height: 7%;
+    width: 15%;
+}
+
+.broccoli:hover {
+    height: 1%;
+    width: 1%;
+    transition: all 5s ease-out;
+}
+
+/* Id Selectors */
+#heading {
+    color: blue;
+}
+
+
+/* Classes são para diversos elementos que compartilham do mesmo design */
+/* Ids são seletores únicos, isso é: Só podem aparecer uma vez por página e cada tag aceita apenas um id */
