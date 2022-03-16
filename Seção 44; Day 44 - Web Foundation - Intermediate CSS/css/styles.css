@@ -1,0 +1,153 @@
+body {
+    margin: 0;
+    text-align: center;
+    font-family: 'Merriweather', serif;
+}
+
+p::selection, h1::selection, h2::selection, h3::selection, a::selection, img::selection {
+    background-color: #DD4A48;
+    color: white;
+}
+
+h1 {
+    font-family: 'Sacramento', cursive;
+    font-size: 5.625rem; 
+    /* 16px = 100% = 1em = 1rem */
+    /* px são estáticos, não mudam e não herdam dos pais. % e em herdam dos pais. Logo, se no body houver um font-size de 2em ele somaria com o font-size do h1 e ficaria 7.625em */
+    /* rem ignora qualquer valor dos pais. */
+    margin: 50px auto 0 auto;
+    /* all */
+    /* top right bottom left */
+    /* top|bottom right|left */
+    color: #ECB390;
+    line-height: 3.6;
+    /* Para line-height é preferível não utilizar unidades */
+}
+
+h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    color: #ECB390;
+    font-weight: normal;
+}
+
+h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: #ff8133;
+}
+
+a {
+    color: #ff8133;
+    margin: auto 20px auto 20px;
+}
+
+a:hover {
+    color: #DD4A48;
+}
+
+hr {
+    border: dotted #DD4A48 6px;
+    border-bottom: none;
+    width: 12%;
+    margin: 100px auto;
+}
+
+.top-container {
+    padding-top: 100px;
+    background-color: #F5EEDC;
+    position: relative;
+}
+
+.middle-container {
+    margin-top: 30px;
+}
+
+.bottom-container {
+    background-color: #ECB390;
+    margin: 40px auto auto auto;
+    padding: 30px 0 30px 0;
+    line-height: 2.5;
+}
+
+.pro {
+    text-decoration: underline;
+}
+
+.bottom-cloud {
+    position: absolute;
+    left: 300px;
+    bottom: 300px;
+}
+
+.top-cloud {
+    position: absolute;
+    top: 50px;
+    right: 300px;
+}
+
+.skill-image {
+    border-radius: 100%;
+    width: 25%;
+    float: right;
+    margin-right: 30px;
+}
+
+/* É recomendado NÃO usar float para posicionar. Apenas para fazer um wrap em textos. */
+
+.skills-image {
+    border-radius: 100%;
+    width: 25%;
+    float: left;
+    margin-right: 30px;
+}
+
+.skill-row {
+    width: 50%;
+    margin: 100px auto 100px auto;
+    text-align: left;
+    line-height: 2;
+}
+
+/* .skill-description {
+    clear: left;
+}
+
+.main-skill-description {
+    clear: right;
+} */
+/* clear serve como um anti-float */
+
+
+.btn {
+    background: #ECB390;
+    background-image: -webkit-linear-gradient(top, #ECB390, #ff8133);
+    background-image: -moz-linear-gradient(top, #ECB390, #ff8133);
+    background-image: -ms-linear-gradient(top, #ECB390, #ff8133);
+    background-image: -o-linear-gradient(top, #ECB390, #ff8133);
+    background-image: linear-gradient(to bottom, #ECB390, #ff8133);
+    -webkit-border-radius: 8;
+    -moz-border-radius: 8;
+    border-radius: 8px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    line-height: 4;
+}
+  
+.btn:hover {
+background: #ffd5bd;
+background-image: -webkit-linear-gradient(top, #ffd5bd, #cf4c00);
+background-image: -moz-linear-gradient(top, #ffd5bd, #cf4c00);
+background-image: -ms-linear-gradient(top, #ffd5bd, #cf4c00);
+background-image: -o-linear-gradient(top, #ffd5bd, #cf4c00);
+background-image: linear-gradient(to bottom, #ffd5bd, #cf4c00);
+text-decoration: none;
+}
+
+.copyright {
+    color: white;
+    margin: 0;
+    font-size: 0.8rem;
+}
