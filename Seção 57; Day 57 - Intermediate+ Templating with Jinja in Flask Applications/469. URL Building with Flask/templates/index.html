@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Home</title>
+    </head>
+    <body>
+        <h1>Let me guess a name's owner age and gender!</h1>
+        <form action="/guess" method="post" enctype="multipart/form-data">
+            <label for="name">What name shall I search?</label>
+            <input type="text" name="name" id="name" placeholder="Any name here" autofocus>
+            <input type="submit" value="Search!">
+        </form>
+        <a href="{{ url_for('get_blog', num=3) }}">Go to blog!</a>
+    </body>
+    <footer>
+        <p>&copy; {{curr_year}}. Built by {{ b_name }}</p>
+    </footer>
+</html>
