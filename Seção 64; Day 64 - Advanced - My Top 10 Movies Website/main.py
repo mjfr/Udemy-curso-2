@@ -1,3 +1,4 @@
+import os
 import wtforms.validators
 from flask import Flask, render_template, redirect, url_for, request
 from flask_bootstrap import Bootstrap
@@ -13,6 +14,8 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///movies.db"
 Bootstrap(app)
 db = SQLAlchemy(app)
+TMDB_API_KEY = os.environ["TMDB_API_KEY"]
+TMDB_ENDPOINT = f"https://api.themoviedb.org/3/search/movie?api_key={TMDB_API_KEY}&page=1&include_adult=false&query="
 
 
 class Movie(db.Model):
@@ -20,10 +23,10 @@ class Movie(db.Model):
     title = db.Column(db.String(250), nullable=False, unique=True)
     year = db.Column(db.Integer, nullable=False)
     description = db.Column(db.Text, nullable=False, unique=True)
-    rating = db.Column(db.Float, nullable=False)
-    ranking = db.Column(db.Integer, nullable=False)
-    review = db.Column(db.String(250), nullable=False, unique=True)
-    img_url = db.Column(db.String(250), nullable=False, unique=True)
+    rating = db.Column(db.Float, nullable=True)
+    ranking = db.Column(db.Integer, nullable=True)
+    review = db.Column(db.String(250), nullable=True, unique=True)
+    img_url = db.Column(db.String(250), nullable=True, unique=True)
 
 
 # db.create_all()
@@ -50,9 +53,17 @@ class EditMovieForm(FlaskForm):
     submit = SubmitField(label="Update changes")
 
 
+class AddMovieForm(FlaskForm):
+    title = StringField(label="Movie Title", validators=[DataRequired()], render_kw={"placeholder": "e.g.: Titanic"})
+    submit = SubmitField(label="Add")
+
+
 @app.route("/")
 def home():
-    movies = db.session.query(Movie).all()
+    movies = db.session.query(Movie).order_by(Movie.rating)[::-1]
+    for movie in movies:
+        movie.ranking = movies.index(movie) + 1
+        db.session.commit()
     return render_template("index.html", movies=movies)
 
 
@@ -66,6 +77,39 @@ def edit():
         db.session.commit()
         return redirect(url_for("home"))
     return render_template("edit.html", movie=movie, form=form)
+
+
+@app.route("/delete")
+def delete():
+    movie = Movie.query.get(request.args["movie_id"])
+    db.session.delete(movie)
+    db.session.commit()
+    return redirect(url_for("home"))
+
+
+@app.route("/add", methods=["GET", "POST"])
+def select():
+    form = AddMovieForm()
+    title = request.form.get("title")
+    if form.validate_on_submit():
+        response = requests.get(TMDB_ENDPOINT + title).json()
+        result_list = [movie for movie in response["results"]]
+        return render_template("select.html", movies=result_list)
+    return render_template("add.html", form=form)
+
+
+@app.route("/adding/selected")
+def add():
+    movie_id = request.args.get("movie")
+    response = requests.get(f"https://api.themoviedb.org/3/movie/{movie_id}?api_key={TMDB_API_KEY}").json()
+    movie_to_add = Movie()
+    movie_to_add.title = response["title"]
+    movie_to_add.year = response["release_date"].split("-")[0]
+    movie_to_add.description = response["overview"]
+    movie_to_add.img_url = f"https://image.tmdb.org/t/p/w500/{response['poster_path']}"
+    db.session.add(movie_to_add)
+    db.session.commit()
+    return redirect(url_for("edit", movie=movie_to_add, movie_id=movie_to_add.movie_id))
 
 
 if __name__ == '__main__':
