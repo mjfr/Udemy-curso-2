@@ -18,10 +18,15 @@ class RegisterUserForm(FlaskForm):
     email = EmailField("Your email", validators=[DataRequired()])
     password = PasswordField("Your password", validators=[DataRequired()])
     password_confirmation = PasswordField("Confirm your password", validators=[DataRequired()])
-    submit = SubmitField("Register!")
+    submit = SubmitField("Sign Up!")
 
 
 class LoginUserForm(FlaskForm):
     email = EmailField("Your email", validators=[DataRequired()])
     password = PasswordField("Your password", validators=[DataRequired()])
     submit = SubmitField("Login!")
+
+
+class CommentForm(FlaskForm):
+    comment = CKEditorField("Comment", validators=[DataRequired()])
+    submit = SubmitField("Submit comment!")
