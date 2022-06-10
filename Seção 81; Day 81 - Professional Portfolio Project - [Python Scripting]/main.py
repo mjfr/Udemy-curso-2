@@ -4,58 +4,62 @@
 # Use a try block to handle the possible exceptions
 # Use a loop to go through each letter and convert them
 
+# Using playsound 1.2.2 because 1.3.0 will throw lots of exceptions and will not play the file
+from playsound import playsound
+from time import sleep
+
 letter_morse_dict = {
-    "a": ".-",
     "á": ".-",
     "à": ".-",
     "ã": ".-",
     "â": ".-",
     "ä": ".-",
+    "a": ".-",
     "b": "-...",
-    "c": "-.-.",
     "ç": "-.-.",
+    "c": "-.-.",
     "d": "-..",
-    "e": ".",
     "é": ".",
     "è": ".",
     "ê": ".",
     "ë": ".",
+    "e": ".",
     "f": "..-.",
     "g": "--.",
     "h": "....",
-    "i": "..",
     "í": "..",
     "ì": "..",
     "î": "..",
     "ï": "..",
+    "i": "..",
     "j": ".---",
     "k": "-.-",
     "l": ".-..",
     "m": "--",
-    "n": "-.",
     "ñ": "-.",
-    "o": "---",
+    "n": "-.",
     "ó": "---",
     "ò": "---",
     "õ": "---",
     "ô": "---",
     "ö": "---",
+    "o": "---",
     "p": ".--.",
     "q": "--.-",
     "r": ".-.",
     "s": "...",
     "t": "-",
-    "u": "..-",
     "ú": "..-",
     "ù": "..-",
     "û": "..-",
     "ü": "..-",
+    "u": "..-",
     "v": "...-",
     "w": ".--",
     "x": "-..-",
-    "y": "-.--",
     "ý": "-.--",
     "ÿ": "-.--",
+    "y": "-.--",
     "z": "--..",
     "0": "-----",
     "1": ".----",
@@ -89,6 +93,19 @@ letter_morse_dict = {
 }
 
 
+def listen_to_morse(morse):
+    for sign in morse:
+        if sign == ".":
+            playsound("dot.mp3")
+        elif sign == "-":
+            playsound("dash.mp3")
+        elif sign == " ":
+            sleep(0.3)
+        elif sign == "||":
+            sleep(0.5)
+    return ""
+
+
 def text_to_morse():
     text_input = input("Type something to convert it to morse: ")
     text_list = [letter for letter in text_input.lower()]
@@ -105,7 +122,8 @@ def text_to_morse():
                 f'"{current_letter}" is not recognized in morse code. Try using letters without accents and/or symbols'
                 'that are recognized.')
             converted_text += f"{current_letter} "
-    return converted_text.strip()
+    print(f"Playing morse:\n{converted_text.strip()}")
+    return listen_to_morse(converted_text)
 
 
 def morse_to_text():
@@ -116,9 +134,8 @@ def morse_to_text():
         try:
             while len(morse_list) > 0:
                 current_morse = morse_list.pop(0)
-                text = current_morse.replace(current_morse, list(letter_morse_dict.keys())[
-                    list(letter_morse_dict.values()).index(current_morse)])
-                converted_morse += f"{text}"
+                text = {k: v for (v, k) in letter_morse_dict.items()}
+                converted_morse += f"{text[current_morse]}"
             break
         except ValueError:
             print("Type a valid morse code.")
@@ -127,13 +144,12 @@ def morse_to_text():
 
 select_function = {"1": text_to_morse, "2": morse_to_text}
 while True:
-    choice = ""
     try:
         choice = input("Type 1 to encode your text to morse code\nType 2 to decode your morse code to text\n"
                        "Type 3 to exit\nOption: ")
         if choice == "3":
             print("Exiting...")
             break
+        print(select_function[choice]())
     except KeyError:
         print("Use only the valid options")
-    print(select_function[choice]())
