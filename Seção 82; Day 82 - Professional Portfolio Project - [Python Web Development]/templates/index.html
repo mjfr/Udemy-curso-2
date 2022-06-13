@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Site portfólio do Matheus</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;900&display=swap" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/ccc25c5d23.js" crossorigin="anonymous"></script>
+    </head>
+    <header>
+        <nav class="nav-bar">
+            <a href="#home">Home</a>
+            <a href="#about">Sobre</a>
+            <a href="#contact">Contatos</a>
+            <a href="#">Portfólio</a>
+            <a href="#">Ver C.V.</a>
+        </nav>
+    </header>
+    <body id="home">
+        <section>
+            <!-- Introduction -->
+            <article>
+                <div class="text-img">
+                    <h1>Olá, Matheus José aqui</h1>
+                    <h3>Sou desenvolvedor back-end!</h3>
+                </div>
+                <div class="text-img">
+                    <img class="prof-pic" src="https://media-exp2.licdn.com/dms/image/C4D03AQERd5tbNKwU6g/profile-displayphoto-shrink_800_800/0/1636659591192?e=1660780800&v=beta&t=aBYtqZdS2zSfkgeAroGH6Oir2I-awRo5BVOohQ6BxwM" alt="Foto do Matheus">
+                </div>
+            </article>
+            <hr class="content-divisor">
+            <!-- Summary -->
+            <article id="about">
+                <h5>Um pouquinho sobre eu:</h5>
+                <p>
+                    Após o término do ensino médio, decidi cursar algo na área da informática devido à afinidade que possuo com
+                    computadores desde sempre. Dei início e concluí um curso oferecido pelo SENAI e consequentemente trabalhei como
+                    estagiário por três meses até que realizei uma mudança de São Paulo - SP para Londrina - PR.
+                </p>
+
+                <p>
+                    Iludido acabei deixando de lado a programação e então passei a estudar química na UEL (Universidade estadual de 
+                    Londrina), mal passou-se dois anos e logo percebi que o que realmente gosto e desejo é a programação. No momento
+                    estou estudando por conta própria através de cursos da Udemy e este site é justamente um dos projetos de portfólio
+                    do curso <a href="https://www.udemy.com/course/100-days-of-code/">100 Days of Code: The Complete Python Pro Bootcamp for 2022                    </a>
+                    <br>
+                    <em><strong>Não foram dois anos perdidos, foram dois anos ganhando novas experiências e reafirmando minhas escolhas.</strong></em>
+                </p>
+            </article>
+        </section>
+        <hr class="content-divisor">
+        <section>
+            <article>
+                <h5>Educação:</h5>
+                <ul>
+                    <li>Estudos autodirigidos de desenvolvimento - Udemy (2021-atualmente) </li>
+                    <li>Bacharel em Química (curso trancado) - Universidade Estadual de Londrina (2020-2021)</li>
+                    <li>Formado desenvolvedor pelo SENAI - Escola de Informática (2016-2017)</li>
+                </ul>
+                <h5>Trabalho:</h5>
+                <ul>
+                    <li>Estagiário como desenvolvedor - Jiros Central de Agronegócios (2018-2018)</li>
+                </ul>
+            </article>
+        </section>
+        <hr class="content-divisor">
+    </body>
+    <footer id="contact">
+        <h5>Contatos</h5>
+        <a href="#"><i class="fa-brands fa-github"></i>Github</a>
+        <a href="#"><i class="fa-brands fa-linkedin"></i>Linkedin</a>
+        <a href="#"><i class="fa-solid fa-envelope-circle-check"></i>Meu e-mail</a>
+        <p>Copyright &copy; Matheus José Felipe Rosa - {{year}}</p>
+        <p>Feito do zero com muita paciência</p>
+    </footer>
+</html>
