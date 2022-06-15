@@ -3,6 +3,7 @@
     #353535 - Medium gray
     #3A6B9C - Medium blue
     #6A9BFF - Light blue
+    #6ACCFF - Lighest blue
 */
 
 /* Fonts
@@ -34,20 +35,20 @@ h5 {
 h6 {
     font-size: 1rem;
 }
+
+h1, h2, h3, h4, h5, h6 {
+    color: #6A9BFF;
+    font-family: 'Montserrat', sans-serif;
+}
 /* Ending - Heading tags */
 
-body {
+ body, .jumbotron {
     background-color: #202020;
     margin: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    color: #3A6B9C;
-    font-family: 'Montserrat', sans-serif;
-}
-
-p {
-    color: #6a9bff;
+.l-blue {
+    color: #6ACCFF;
 }
 
 .prof-pic {
@@ -62,6 +63,19 @@ p {
     text-align: center;
 }
 
+.navbar {
+    background-color: #bbe7ffab!important;
+}
+
+/* .jumbotron {
+    margin: 0;
+} */
+
+a.social {
+    padding: 0 10px 0 10px;
+
+}
+
 .content-divisor {
     border: 0;
     border-radius: 100%;
@@ -69,11 +83,60 @@ p {
     background-image: linear-gradient(to right, #00000000, #6a9bffbf, #00000000);
 }
 
-.nav-bar {
+/*.nav-bar {
     display: inline-block;
 }
 
 a {
     text-decoration: none;
-    text-transform: ;
 }
+
+.centered-container {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px 20px;
+} */
+
+/* Starting - Container Sizes */
+/* .r100 {
+    position: relative;
+    right: 100%;
+}
+.r90 {
+    position: relative;
+    right: 90%;
+}
+.r80 {
+    position: relative;
+    right: 80%;
+}
+.r70 {
+    position: relative;
+    right: 70%;
+}
+.r60 {
+    position: relative;
+    right: 60%;
+}
+.r50 {
+    position: relative;
+    right: 50%;
+}
+.r40 {
+    position: relative;
+    right: 40%;
+}
+.r30 {
+    position: relative;
+    right: 30%;
+}
+.r20 {
+    position: relative;
+    right: 20%;
+}
+.r10 {
+    position: relative;
+    right: 10%;
+} */
+/* Ending - Container Sizes */
