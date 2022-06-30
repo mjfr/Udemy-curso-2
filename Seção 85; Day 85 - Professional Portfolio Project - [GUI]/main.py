@@ -63,7 +63,7 @@ class App(tk.Tk):
         self.after_aux = self.after(500, self.update_timer)
 
     def update_timer(self):
-        if self.sentence == self.text.get("1.0", "end-1c"):
+        if self.sentence == self.text.get("1.0", "end-1c") or len(self.sentence) == len(self.text.get("1.0", "end-1c")):
             self.after_cancel(self.after_aux)
             self.show_statistics()
         elif self.time > 0:
