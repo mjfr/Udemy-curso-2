@@ -10,7 +10,7 @@ class Ball(Turtle):
         self.color("white")
         self.x_move = 10
         self.y_move = 10
-        self.move_speed = 1/1000*60
+        self.move_speed = 36/1000
         self.reset_position(0)
 
     def move(self):
@@ -25,10 +25,11 @@ class Ball(Turtle):
         self.x_move *= -1
 
     def reset_position(self, x_cor):
-        paddle_center = (x_cor + randint(-50, 50), -150)
+        self.bounce_y()
+        paddle_center_offset = (x_cor + randint(-50, 50), -179)
         if randint(1, 2) == 1:
             self.bounce_x()
-        self.goto(paddle_center)
+        self.goto(paddle_center_offset)
 
     def boundary_bounce_x(self, x_cor, min_max_x):
         if x_cor >= min_max_x:
@@ -47,8 +48,17 @@ class Ball(Turtle):
             return True
         return False
 
-    # def detect_paddle_collision(self, paddle):
-    #     if -100 < paddle.xcor() > 100 and self.ycor() < -179:
-    #         print(paddle)
-    #         self.bounce_y()
+    def detect_paddle_collision(self, paddle):
+        if self.pos()[0] - 60 <= paddle.pos()[0] <= self.pos()[0] + 60 and\
+                self.pos()[1] - 20 <= paddle.pos()[1] <= self.pos()[1] + 20:
+            self.bounce_y()
+
+    def detect_target_collision(self, target, target_list, scoreboard):
+        if self.xcor() - 54 <= target.xcor() <= self.xcor() + 54 and \
+                self.ycor() - 11 <= target.ycor() <= self.ycor() + 11:
+            target.hideturtle()
+            target.goto(700, 800)
+            target_list.remove(target)
+            self.bounce_y()
+            scoreboard.add_score()
 
