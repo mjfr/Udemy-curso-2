@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block head %}
+    <title>{% block title %}Cafes{% endblock %}</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <h1>All Cafes</h1>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            {% for row in cafes[0] %}
+                                <th>{{ row }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in cafes %}
+                            <tr>
+                                <td>{{ row["id"] }}</td>
+                                <td>{{ row["name"] }}</td>
+                                <td><a href="{{ row['map_url'] }}">Link do mapa</a></td>
+                                <td><a href="{{ row['img_url'] }}">Link da foto</a></td>
+                                <td>{{ row["location"] }}</td>
+                                <td>{{ row["seats"] }}</td>
+                                <td>{{ row["has_toilet"] }}</td>
+                                <td>{{ row["has_wifi"] }}</td>
+                                <td>{{ row["has_sockets"] }}</td>
+                                <td>R$ {{ row["coffee_price"] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+                <p><a href="{{url_for('home')}}">Return to index page</a></p>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
