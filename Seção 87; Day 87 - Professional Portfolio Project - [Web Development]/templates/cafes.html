@@ -7,38 +7,46 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-
-                <h1>All Cafes</h1>
-
-                <table class="table">
-                    <thead>
-                        <tr>
-                            {% for row in cafes[0] %}
-                                <th>{{ row }}</th>
-                            {% endfor %}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for row in cafes %}
-                            <tr>
-                                <td>{{ row["id"] }}</td>
-                                <td>{{ row["name"] }}</td>
-                                <td><a href="{{ row['map_url'] }}">Link do mapa</a></td>
-                                <td><a href="{{ row['img_url'] }}">Link da foto</a></td>
-                                <td>{{ row["location"] }}</td>
-                                <td>{{ row["seats"] }}</td>
-                                <td>{{ row["has_toilet"] }}</td>
-                                <td>{{ row["has_wifi"] }}</td>
-                                <td>{{ row["has_sockets"] }}</td>
-                                <td>R$ {{ row["coffee_price"] }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-
-                </table>
-                <p><a href="{{url_for('home')}}">Return to index page</a></p>
-
+                <br><br><br>
+                <h1>Mostrando todos cafés:</h1>
             </div>
+            {% for row in cafes %}
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card bottom-spacing">
+                            <img class="card-img-top" src="{{ row['img_url'] }}" alt="Imagem do café: {{ row['name'] }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ row["name"] }}</h5>
+                                <p class="card-text">
+                                    Um café de {{ row["city"] }}<br>
+                                    O preço do café é ± R${{ row["coffee_price"] }}<br>
+                                    <a href="{{ row['map_url'] }}" target="_blank"><i class="fa-solid fa-map-location-dot"></i> Abrir no mapa</a><br>
+                                    {% if row["has_toilet"] %}
+                                        <i class="fa-solid fa-toilet-paper"></i>
+                                    {% endif %}
+                                    {% if row["has_wifi"] %}
+                                        <i class="fa-solid fa-wifi"></i>
+                                    {% endif %}
+                                    {% if row["has_sockets"] %}
+                                        <i class="fa-solid fa-plug-circle-check"></i>
+                                    {% endif %}
+                                    <br>
+                                    <i class="fa-solid fa-chair"></i> {{ row["seats"] }}
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted left">
+                                    <a class="left" href="{{ url_for('update_price', cafe_id=row['id']) }}"><i class="fa-solid fa-pencil"></i> Editar café? </a>
+                                </small>
+                                <small class="text-muted right">
+                                    <a class="right" href="{{ url_for('delete_cafe', cafe_id=row['id']) }}"><i class="fa-solid fa-trash-can"></i> Excluir café?</a>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

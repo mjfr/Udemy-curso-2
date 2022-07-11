@@ -1,0 +1,32 @@
+.card-footer{
+    display: grid;
+}
+
+.card-img-top{
+    height: 300px;
+}
+
+.left{
+    text-align: left;
+    grid-row: 1;
+}
+
+.right{
+    text-align: right;
+    grid-row: 1;
+}
+
+.bottom-fix-contact {
+    background-color: rgba(255, 255, 255, 0.5);
+    position: inherit;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.site-face{
+    background-image: url(https://anba.com.br/wp-content/uploads/2022/03/cafe-foto-Nicolas-Economou-NurPhoto-AFP-scaled.jpg);
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.9);
+    background-position: center;
+    background-size: cover;
+}
